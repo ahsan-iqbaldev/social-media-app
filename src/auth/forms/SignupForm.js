@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button} from "reactstrap";
+import { Button } from "reactstrap";
 import { signUpUser } from "../../store/actions/authAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
-
-  const {isLoading} = useSelector((state) => state.auth)
+  const { isLoading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,8 +35,8 @@ const SignupForm = () => {
         formData.password
       )
     );
-    
-  navigate('/signin');
+
+    navigate("/signin");
 
     console.log("Form data submitted:", formData);
   };
@@ -123,12 +122,10 @@ const SignupForm = () => {
         </div>
         <Button type="submit" className="shad-button_primary">
           {isLoading ? (
-            <div className="flex-center gap-2">
-             Loading...
-            </div>
+            <div className="flex-center gap-2">Loading...</div>
           ) : (
-          "Sign Up"
-          )} 
+            "Sign Up"
+          )}
         </Button>
 
         <p className="text-small-regular text-light-2 text-center mt-2">

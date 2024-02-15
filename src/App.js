@@ -1,6 +1,6 @@
 import SigninForm from "./auth/forms/SigninForm";
 import SignupForm from "./auth/forms/SignupForm";
-import "./globals.css"; 
+import "./globals.css";
 import { Routes, Route } from "react-router-dom";
 import {
   Home,
@@ -16,9 +16,6 @@ import {
 } from "./root/pages";
 import AuthLayout from "./auth/AuthLayout";
 import RootLayout from "./root/RootLayout";
-// import { Toaster } from "@/components/ui/toaster";
-// import Reels from "./root/pages/Reels";
-// import Chats from "./root/pages/Chats";
 
 const App = () => {
   return (

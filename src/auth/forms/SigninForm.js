@@ -5,8 +5,7 @@ import { Button } from "reactstrap";
 import { signInUser } from "../../store/actions/authAction";
 
 const SigninForm = () => {
-
-  const {isLoading} = useSelector((state) => state.auth)
+  const { isLoading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,8 +24,8 @@ const SigninForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(signInUser(formData.email,formData.password))
-    navigate('/');
+    await dispatch(signInUser(formData.email, formData.password));
+    navigate("/");
     console.log("Form data submitted:", formData);
   };
 
@@ -74,15 +73,13 @@ const SigninForm = () => {
           />
         </div>
         <Button type="submit" className="shad-button_primary">
-        <Button type="submit" className="shad-button_primary">
-          {isLoading ? (
-            <div className="flex-center gap-2">
-             Loading...
-            </div>
-          ) : (
-          "Sign In"
-          )} 
-        </Button>
+          <Button type="submit" className="shad-button_primary">
+            {isLoading ? (
+              <div className="flex-center gap-2">Loading...</div>
+            ) : (
+              "Sign In"
+            )}
+          </Button>
         </Button>
 
         <p className="text-small-regular text-light-2 text-center mt-2">
