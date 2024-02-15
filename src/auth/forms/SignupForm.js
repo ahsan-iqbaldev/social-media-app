@@ -1,85 +1,135 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button} from "reactstrap";
+import { signUpUser } from "../../store/actions/authAction";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
 
-  const handleSubmit = () =>{}
+  const {isLoading} = useSelector((state) => state.auth)
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await dispatch(
+      signUpUser(
+        formData.name,
+        formData.username,
+        formData.email,
+        formData.password
+      )
+    );
+    
+  navigate('/signin');
+
+    console.log("Form data submitted:", formData);
+  };
 
   return (
     <div className="sm:w-420 flex-center flex-col">
       <img src="/assets/images/logo.svg" alt="logo" />
-      <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-        Create a new account
-      </h2>
+      <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Create a new account</h2>
       <p className="text-light-3 small-medium md:base-regular">
         To use snapgram, Please enter your details
       </p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col gap-5 w-full mt-4"
-      >
-        {/* <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input type="text" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input type="text" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>password</FormLabel>
-              <FormControl>
-                <Input type="password" className="shad-input" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full mt-4">
+        <div>
+          <label
+            htmlFor="name"
+            className="mb-3 block text-base small-medium text-white"
+          >
+            Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            className="shad-input"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="username"
+            className="mb-3 block text-base small-medium text-white"
+          >
+            Username
+          </label>
+          <input
+            type="text"
+            name="username"
+            id="username"
+            value={formData.username}
+            onChange={handleInputChange}
+            className="shad-input"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="email"
+            className="mb-3 block text-base small-medium text-white"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            className="shad-input"
+            required
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="password"
+            className="mb-3 block text-base small-medium text-white"
+          >
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={formData.password}
+            onChange={handleInputChange}
+            className="shad-input"
+          />
+        </div>
         <Button type="submit" className="shad-button_primary">
-          {isCreatingAccount ? (
+          {isLoading ? (
             <div className="flex-center gap-2">
-              <Loader /> Loading...
+             Loading...
             </div>
           ) : (
-            "Sign Up"
-          )}
-        </Button> */}
+          "Sign Up"
+          )} 
+        </Button>
 
         <p className="text-small-regular text-light-2 text-center mt-2">
           Already have an account?
@@ -92,7 +142,7 @@ const SignupForm = () => {
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;
