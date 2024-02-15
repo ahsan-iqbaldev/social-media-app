@@ -1,11 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 
 const Home = () => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
-}
+    <>
+     <Link to='/signup'> <Button className="shad-button_primary">SignUp</Button> </Link>
+     <Link to='/signin'>  <Button className="shad-button_primary">SignIp</Button></Link>
+    </>
+  );
+};
 
-export default Home
+export default Home;
