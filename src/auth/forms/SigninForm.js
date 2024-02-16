@@ -53,6 +53,7 @@ const SigninForm = () => {
             onChange={handleInputChange}
             className="shad-input"
             required
+            autoComplete="off" 
           />
         </div>
 
@@ -70,6 +71,7 @@ const SigninForm = () => {
             value={formData.password}
             onChange={handleInputChange}
             className="shad-input"
+            autoComplete="off"
           />
         </div>
           <Button type="submit" className="shad-button_primary">

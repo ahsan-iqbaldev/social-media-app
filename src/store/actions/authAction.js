@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import firebase from "../../config/firebase";
 
 export const signUpUser =
@@ -18,13 +19,11 @@ export const signUpUser =
         .doc(user.uid)
         .set(storeData);
 
-      alert("Register Sucessfully");
       dispatch({ type: "REGISTER_SUCCESS" });
       dispatch(IsLoader(false));
     } catch (error) {
       dispatch({ type: "REGISTER_FAIL", payload: error.message });
       dispatch(IsLoader(false));
-      alert("Something went wrong, Try Again.");
     }
   };
 
@@ -44,13 +43,15 @@ export const signInUser = (email, password) => async (dispatch) => {
 
     const userData = userDoc.data();
 
-    alert("Login Successful");
-    dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+    dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: { ...userData, userId: user.uid },
+    });
     dispatch(IsLoader(false));
   } catch (error) {
     dispatch({ type: "LOGIN_FAIL", payload: error.message });
     dispatch(IsLoader(false));
-    alert("Login Failed. Check your email and password.");
+    toast.error("Login Failed. Check your email and password.");
   }
 };
 

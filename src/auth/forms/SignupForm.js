@@ -36,7 +36,7 @@ const SignupForm = () => {
       )
     );
 
-    navigate("/signin");
+    // navigate("/signin");
 
     console.log("Form data submitted:", formData);
   };

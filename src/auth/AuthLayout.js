@@ -1,7 +1,14 @@
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Outlet, Navigate } from "react-router-dom";
 
 const AuthLayout = () => {
-  const isAuthenticated = false;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    setIsAuthenticated(!!user?.userId);
+  }, [user]);
 
   return (
     <>
@@ -23,5 +30,4 @@ const AuthLayout = () => {
     </>
   );
 };
-
 export default AuthLayout;

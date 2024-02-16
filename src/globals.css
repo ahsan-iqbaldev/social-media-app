@@ -260,9 +260,12 @@
   .shad-input {
     @apply h-12 w-full rounded-md bg-dark-4 border-none py-3 px-3 placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 outline-none ring-offset-light-3  !important;
   }
+  .shad-post-input {
+    @apply h-12 w-full mt-3 rounded-md bg-dark-4 border-none py-3 px-3 placeholder:text-light-4 focus-visible:ring-1 focus-visible:ring-offset-1 outline-none ring-offset-light-3  !important;
+  }
   
   .shad-textarea {
-    @apply h-36 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 !important;
+    @apply h-36 w-full mt-3 bg-dark-3 rounded-xl border-none focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3 px-4 py-4 !important;
   }
 
   /* Button */
@@ -271,7 +274,7 @@
   }
 
   .shad-button_dark_4 {
-    @apply h-12 bg-dark-4 px-5 text-light-1 flex gap-2 !important;
+    @apply h-12 bg-dark-4 px-5 text-light-1 flex gap-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2  !important; 
   }
 
   .shad-button_ghost {
