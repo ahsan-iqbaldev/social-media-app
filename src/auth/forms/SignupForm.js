@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 import { signUpUser } from "../../store/actions/authAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
   const { isLoading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     username: "",

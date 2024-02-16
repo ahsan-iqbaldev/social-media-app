@@ -1,12 +1,11 @@
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { sidebarLinks } from "../../routes";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { Button } from "reactstrap";
 
 const LeftSidebar = () => {
-  const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
   const ahsan = {
     imageUrl: null,
     userId: 8787876766,

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import FileUploader from "../shared/FileUploader";
 import { toast } from "react-toastify";
 import { useState } from "react";
@@ -7,7 +6,6 @@ import { addPost } from "../../store/actions/postAction";
 import { useDispatch } from "react-redux";
 
 const PostForms = ({ action }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     caption: "",
