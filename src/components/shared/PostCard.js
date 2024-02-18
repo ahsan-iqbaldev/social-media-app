@@ -28,14 +28,14 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-3">
           <Link to={`/profile`}>
             <img
-              src={post?.imageUrl || "./assets/icons/profile-placeholder.svg"}
+              src={post?.creator?.profileImage || "./assets/icons/profile-placeholder.svg"}
               alt="creator"
               className="rounded-full w-12 lg:h-12"
             />
           </Link>
           <div className="flex flex-col">
             <p className="base-medium lg:body-bold text-light-1">
-              {/* {post?.creator.name} */}
+              {post?.creator?.name}
             </p>
             <div className="flex-center gap-2 text-light-3">
               <p className="subtle-semibold lg:small-regular">
@@ -50,13 +50,13 @@ const PostCard = ({ post }) => {
         </div>
 
         <Link
-          to={`/update-post/`}
+          to={`/update-post/${post.id}`}
           className={`${user.userId !== post.uid && "hidden"}`}
         >
           <img src="/assets/icons/edit.svg" alt="edit" width={20} height={20} />
         </Link>
       </div>
-      <Link to={`/posts`}>
+      <Link to={`/posts/${post.id}`}>
         {post && (
           <div className="small-medium lg:base-medium py-5">
             <p>{post.caption}</p>

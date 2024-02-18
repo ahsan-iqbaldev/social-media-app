@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const PostForms = ({ action }) => {
-  const { isLoadingCreate, isLoadingUpdate } = useSelector(
+  const { isLoading } = useSelector(
     (state) => state.post
   );
   const { uid } = useSelector((state) => state.auth);
@@ -121,9 +121,9 @@ const PostForms = ({ action }) => {
         <Button
           type="submit"
           className="shad-button_primary whitespace-nowrap"
-          disabled={isLoadingCreate || isLoadingUpdate}
+          disabled={isLoading}
         >
-          {isLoadingCreate || isLoadingUpdate ? "Loading...." : "Post"}
+          {isLoading ? "Loading...." : "Post"}
           {/* {action} */}
         </Button>
       </div>

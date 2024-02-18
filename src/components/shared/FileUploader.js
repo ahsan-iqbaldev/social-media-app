@@ -3,12 +3,12 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "reactstrap";
 
 const FileUploader = ({ fieldChange, mediaUrl }) => {
-  const [file, setFile] = useState([]);
+  // const [file, setFile] = useState([]);
   const [fileUrl, setFileUrl] = useState(mediaUrl);
 
   const onDrop = useCallback(
     (acceptedFiles) => {
-      setFile(acceptedFiles);
+      // setFile(acceptedFiles);
       fieldChange(acceptedFiles);
       setFileUrl(URL.createObjectURL(acceptedFiles[0]));
     },

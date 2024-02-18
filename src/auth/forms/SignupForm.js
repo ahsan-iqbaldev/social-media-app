@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
 import { signUpUser } from "../../store/actions/authAction";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ const SignupForm = () => {
   const { isLoading } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -34,7 +35,7 @@ const SignupForm = () => {
       )
     );
 
-    // navigate("/signin");
+    navigate("/signin");
 
     console.log("Form data submitted:", formData);
   };

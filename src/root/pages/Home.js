@@ -4,7 +4,7 @@ import PostCard from "../../components/shared/PostCard";
 import { getPosts } from "../../store/actions/postAction";
 
 const Home = () => {
-  const { posts, isPostLoading } = useSelector((state) => state.post);
+  const { posts, isLoading } = useSelector((state) => state.post);
   const dispatch = useDispatch();
   console.log(posts, "posts");
 
@@ -31,7 +31,7 @@ const Home = () => {
               />
             </div>
           </div>
-          {isPostLoading && !posts ? (
+          {isLoading && !posts ? (
             <h2>Loading...</h2>
           ) : (
             <ul className="flex flex-col flex-1 gap-9 w-full">

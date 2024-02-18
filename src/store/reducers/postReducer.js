@@ -3,9 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 const initialState = {
   posts: null,
   error: null,
-  isLoadingCreate: false,
-  isPostLoading: false,
-  isPostLoading: false,
+  isLoading: false,
+  // isPostLoading: false,
 };
 
 const postReducer = (state = initialState, action) => {
@@ -17,10 +16,10 @@ const postReducer = (state = initialState, action) => {
         posts: action.payload,
       };
 
-    case "SET_IS_LOADING_CREATE":
+    case "SET_IS_LOADING":
       return {
         ...state,
-        isLoadingCreate: action.payload,
+        isLoading: action.payload,
       };
 
     default:

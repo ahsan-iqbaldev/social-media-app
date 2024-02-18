@@ -2,7 +2,7 @@ import React from 'react'
 
 const EditPost = () => {
   return (
-    <div>EditPost</div>
+    <div>Update Post</div>
   )
 }
 

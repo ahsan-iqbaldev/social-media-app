@@ -33,21 +33,37 @@ export const addPost = (formData, uid) => async (dispatch) => {
 
 export const getPosts = () => async (dispatch) => {
   try {
+    dispatch(IsLoader(true));
     const snapshot = await firebase.firestore().collection("posts").orderBy('createdAt', 'desc').get();
-    const posts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    console.log(posts,'ahsan')
+    const posts = [];
+
+    for (const doc of snapshot.docs) {
+      const postData = { id: doc.id, ...doc.data() };
+      const userSnapshot = await firebase.firestore().collection("users").doc(postData.uid).get();
+      const userData = userSnapshot.data();
+      
+      const postWithUserData = { ...postData, creator: userData };
+      
+      posts.push(postWithUserData);
+    }
+
+    console.log(posts, 'ahsan');
+
     dispatch({
       type: "GET_POSTS",
       payload: posts,
     });
+    dispatch(IsLoader(false));
   } catch (error) {
     console.error("Error fetching posts:", error);
+    dispatch(IsLoader(false));
   }
 };
 
+
 export const IsLoader = (val) => async (dispatch) => {
   dispatch({
-    type: "SET_IS_LOADING_CREATE",
+    type: "SET_IS_LOADING",
     payload: val,
   });
 };

@@ -28,7 +28,7 @@ const LeftSidebar = () => {
           className="flex gap-3 items-center"
         >
           <img
-            src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
+            src={user?.profileImage || "/assets/icons/profile-placeholder.svg"}
             alt="Profile Image"
             className="h-14 w-14 rounded-full"
           />
