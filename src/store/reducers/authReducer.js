@@ -21,6 +21,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+        uid: action.payload.userId
       };
 
     case "REGISTER_FAIL":

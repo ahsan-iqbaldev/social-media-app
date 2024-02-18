@@ -1,17 +1,11 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { sidebarLinks } from "../../routes";
-// import { useSelector } from "react-redux";
 import { Button } from "reactstrap";
+import { useSelector } from "react-redux";
 
 const LeftSidebar = () => {
   const { pathname } = useLocation();
-  // const { user } = useSelector((state) => state.auth);
-  const ahsan = {
-    imageUrl: null,
-    userId: 8787876766,
-    name: "AhsanIqbal",
-    username: "ahsaniqbal",
-  };
+  const { user } = useSelector((state) => state.auth);
 
   const signOut = () => {
     localStorage.clear();
@@ -30,17 +24,17 @@ const LeftSidebar = () => {
           />
         </Link>
         <Link
-          to={`/profile/${ahsan.userId}`}
+          to={`/profile/${user.userId}`}
           className="flex gap-3 items-center"
         >
           <img
-            src={ahsan.imageUrl || "/assets/icons/profile-placeholder.svg"}
+            src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
             alt="Profile Image"
             className="h-14 w-14 rounded-full"
           />
           <div className="flex flex-col">
-            <p className="body-bold">{ahsan.name}</p>
-            <p className="small-regular text-light-3">@{ahsan.username}</p>
+            <p className="body-bold">{user.name}</p>
+            <p className="small-regular text-light-3">@{user.username}</p>
           </div>
         </Link>
 

@@ -3,10 +3,16 @@ import { toast } from "react-toastify";
 import { useState } from "react";
 import { Button } from "reactstrap";
 import { addPost } from "../../store/actions/postAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const PostForms = ({ action }) => {
+  const { isLoadingCreate, isLoadingUpdate } = useSelector(
+    (state) => state.post
+  );
+  const { uid } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     caption: "",
     location: "",
@@ -34,8 +40,9 @@ const PostForms = ({ action }) => {
     try {
       if (action === "Create") {
         console.log(formData);
-        await dispatch(addPost(formData))
+        await dispatch(addPost(formData, uid));
         toast.success("Post created successfully!");
+        navigate("/");
       } else if (action === "Update") {
         // await updatePost(data);
         toast.success("Post updated successfully!");
@@ -114,11 +121,10 @@ const PostForms = ({ action }) => {
         <Button
           type="submit"
           className="shad-button_primary whitespace-nowrap"
-          //   disabled={isLoadingCreate || isLoadingUpdate}
+          disabled={isLoadingCreate || isLoadingUpdate}
         >
-          {/* {(isLoadingCreate || isLoadingUpdate) && <Loader />} */}
+          {isLoadingCreate || isLoadingUpdate ? "Loading...." : "Post"}
           {/* {action} */}
-          Post
         </Button>
       </div>
     </form>

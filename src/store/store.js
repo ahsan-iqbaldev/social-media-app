@@ -1,46 +1,26 @@
-import { applyMiddleware, compose, createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import {thunk} from "redux-thunk";
+import { compose } from "redux";
 import rootReducer from "./reducers/rootReducer";
-import { thunk } from "redux-thunk";
-import CryptoJS from "crypto-js";
 
 const saveToLocalStorage = (state) => {
-  const serializedUid = CryptoJS.AES.encrypt(
-    JSON.stringify(state.authUser),
-    "my-secret-key"
-  ).toString();
+  const serializedUid = JSON.stringify(state.auth);
   localStorage.setItem("auth", serializedUid);
 };
-
 const checkLocalStorage = () => {
-  try {
-    const serializedUid = localStorage.getItem("auth");
-    if (serializedUid === null) return undefined;
-
-    const decryptedData = CryptoJS.AES.decrypt(
-      serializedUid,
-      "my-secret-key"
-    ).toString(CryptoJS.enc.Utf8);
-
-    return {
-      authUser: JSON.parse(decryptedData),
-    };
-  } catch (error) {
-    console.error(
-      "Error while parsing or decrypting localStorage data:",
-      error
-    );
-    return undefined; 
-  }
+  const serializedUid = localStorage.getItem("auth");
+  if (serializedUid === null) return undefined;
+  return {
+    auth: JSON.parse(serializedUid),
+  };
 };
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const comp = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-let store = createStore(
+const store = createStore(  
   rootReducer,
   checkLocalStorage(),
-  composeEnhancers(applyMiddleware(thunk))
+  comp(applyMiddleware(thunk))
 );
-
 store.subscribe(() => saveToLocalStorage(store.getState()));
-
 export default store;
