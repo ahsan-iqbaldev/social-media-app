@@ -1,0 +1,63 @@
+/* TagsField.css */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .react-tags {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+  }
+  
+  .react-tags__selected {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .react-tags__selected-tag {
+    background: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    margin: 2px;
+    padding: 2px 8px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .react-tags__selected-tag i {
+    margin-left: 4px;
+    cursor: pointer;
+  }
+  
+  .react-tags__search-input {
+    font-size: 14px;
+    border: none;
+    outline: none;
+    padding: 4px;
+    margin: 4px;
+    flex-grow: 1;
+  }
+  
+  .react-tags__suggestions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .react-tags__suggestion {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .react-tags__suggestion--active {
+    background-color: #007bff;
+    color: #fff;
+  }
+  

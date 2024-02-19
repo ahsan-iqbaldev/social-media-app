@@ -4,7 +4,7 @@ const initialState = {
   posts: null,
   error: null,
   isLoading: false,
-  // isPostLoading: false,
+  singlePost: null,
 };
 
 const postReducer = (state = initialState, action) => {
@@ -15,6 +15,12 @@ const postReducer = (state = initialState, action) => {
         ...state,
         posts: action.payload,
       };
+
+      case "GET_SINGLE_POST":
+        return {
+          ...state,
+          singlePost: action.payload,
+        };
 
     case "SET_IS_LOADING":
       return {

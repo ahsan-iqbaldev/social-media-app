@@ -5,6 +5,7 @@ import { Button } from "reactstrap";
 import { addPost } from "../../store/actions/postAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import TagsField from "../shared/TagsField";
 
 const PostForms = ({ action }) => {
   const { isLoading } = useSelector(
@@ -16,7 +17,7 @@ const PostForms = ({ action }) => {
   const [formData, setFormData] = useState({
     caption: "",
     location: "",
-    tags: "",
+    tags: [], 
     post: null,
   });
 
@@ -34,6 +35,14 @@ const PostForms = ({ action }) => {
       [name]: value,
     });
   };
+
+  const handleTagsChange = (newTags) => {
+    setFormData({
+      ...formData,
+      tags: newTags,
+    });
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -100,9 +109,9 @@ const PostForms = ({ action }) => {
 
       <div>
         <label htmlFor="tags" className="shad-form_label">
-          Add Tags (Separeted by comma " , "){" "}
+          Add Tags
         </label>
-        <input
+        {/* <input
           type="text"
           name="tags"
           id="tags"
@@ -111,7 +120,8 @@ const PostForms = ({ action }) => {
           className="shad-post-input"
           required
           autoComplete="off"
-        />
+        /> */}
+       <TagsField tags={formData.tags} onTagsChange={handleTagsChange} />
       </div>
 
       <div className="flex gap-4 items-center justify-end">
