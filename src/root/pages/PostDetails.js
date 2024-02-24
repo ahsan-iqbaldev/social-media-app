@@ -71,7 +71,7 @@ const PostDetails = () => {
             <div className="flex-between w-full">
               <Link
                 to={`/profile/${post?.creator?.id}`}
-                className="flex items-center gap-2"
+                className="flex items-center gap-3"
               >
                 <img
                   src={

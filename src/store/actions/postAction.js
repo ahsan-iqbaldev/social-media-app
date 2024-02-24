@@ -41,7 +41,7 @@ export const getPosts = (userId) => async (dispatch) => {
       .firestore()
       .collection("posts")
       .orderBy("createdAt", "desc")
-      .limit(5)
+      // .limit(5)
       .onSnapshot(async (snapshot) => {
         const posts = [];
 
@@ -53,7 +53,7 @@ export const getPosts = (userId) => async (dispatch) => {
             .collection("users")
             .doc(postData.uid)
             .get();
-          const userData = userSnapshot.data();
+          const userData = { id: userSnapshot.id, ...userSnapshot.data() };
 
           const likesSnapshot = await firebase
             .firestore()

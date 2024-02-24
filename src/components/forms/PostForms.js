@@ -111,16 +111,6 @@ const PostForms = ({ action }) => {
         <label htmlFor="tags" className="shad-form_label">
           Add Tags
         </label>
-        {/* <input
-          type="text"
-          name="tags"
-          id="tags"
-          value={formData.tags}
-          onChange={handleInputChange}
-          className="shad-post-input"
-          required
-          autoComplete="off"
-        /> */}
        <TagsField tags={formData.tags} onTagsChange={handleTagsChange} />
       </div>
 

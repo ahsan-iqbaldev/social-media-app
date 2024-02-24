@@ -20,6 +20,8 @@ export default  {
       colors: {
         'primary-500': '#877EFF',
         'primary-600': '#5D5FEF',
+        'indigo-500': '#877EFF',
+
         'secondary-500': '#FFB620',
         'off-white': '#D0DFFF',
         'red': '#FF5A5A',

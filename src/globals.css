@@ -32,6 +32,10 @@
     @apply text-[24px] font-bold leading-[140%] tracking-tighter;
   }
 
+  .h4-bold {
+    @apply text-[20px] font-bold leading-[140%] tracking-tighter;
+  }
+
   .base-semibold {
     @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
   }
@@ -213,6 +217,10 @@
     @apply flex rounded-[24px] border border-dark-4 overflow-hidden cursor-pointer w-full h-full;
   }
 
+  .grid-post {
+    @apply flex rounded-[24px] border border-dark-4 overflow-hidden w-full h-full;
+  }
+
   .grid-post_user {
     @apply absolute bottom-0 p-5 flex-between w-full bg-gradient-to-t from-dark-3 to-transparent rounded-b-[24px] gap-2;
   }
@@ -271,6 +279,9 @@
   /* Button */
   .shad-button_primary {
     @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 h-10 flex justify-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2  !important;
+  }
+  .button_primary {
+    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 h-10 flex justify-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-8 py-2  !important;
   }
 
   .shad-button_dark_4 {

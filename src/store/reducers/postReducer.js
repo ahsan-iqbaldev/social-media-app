@@ -1,5 +1,3 @@
-import "react-toastify/dist/ReactToastify.css";
-
 const initialState = {
   posts: null,
   error: null,
@@ -9,18 +7,17 @@ const initialState = {
 
 const postReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case "GET_POSTS":
       return {
         ...state,
         posts: action.payload,
       };
 
-      case "GET_SINGLE_POST":
-        return {
-          ...state,
-          singlePost: action.payload,
-        };
+    case "GET_SINGLE_POST":
+      return {
+        ...state,
+        singlePost: action.payload,
+      };
 
     case "SET_IS_LOADING":
       return {

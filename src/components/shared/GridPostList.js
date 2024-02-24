@@ -1,12 +1,9 @@
-// import { Models } from "appwrite";
 import { Link } from "react-router-dom";
-// import { useUserContext } from "@/context/AuthContext";
 import PostStats from "./PostStats";
 import { useSelector } from "react-redux";
 
 const GridPostList = ({ posts, showUser = true, showStats = true }) => {
   console.log(posts, "postsbyahsan");
-  //   const { user } = useUserContext();
   const { user } = useSelector((state) => state.auth);
 
   const postArray = Array.isArray(posts) ? posts : [posts];
