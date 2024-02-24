@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
+import PostStats from "./PostStats";
 
 const PostCard = ({ post }) => {
   const { user } = useSelector((state) => state.auth);
@@ -28,7 +29,10 @@ const PostCard = ({ post }) => {
         <div className="flex items-center gap-3">
           <Link to={`/profile`}>
             <img
-              src={post?.creator?.profileImage || "./assets/icons/profile-placeholder.svg"}
+              src={
+                post?.creator?.profileImage ||
+                "./assets/icons/profile-placeholder.svg"
+              }
               alt="creator"
               className="rounded-full w-12 lg:h-12"
             />
@@ -38,10 +42,7 @@ const PostCard = ({ post }) => {
               {post?.creator?.name}
             </p>
             <div className="flex-center gap-2 text-light-3">
-              <p className="subtle-semibold lg:small-regular">
-                {storeTime}
-              </p>
-              -
+              <p className="subtle-semibold lg:small-regular">{storeTime}</p>-
               <p className="subtle-semibold lg:small-regular">
                 {post.location}
               </p>
@@ -75,7 +76,7 @@ const PostCard = ({ post }) => {
           className="post-card_img"
         />
       </Link>
-      {/* <PostStats post={post} userId={user.id}/> */}
+      <PostStats post={post} userId={user.userId} />
     </div>
   );
 };

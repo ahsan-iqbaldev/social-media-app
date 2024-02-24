@@ -33,37 +33,64 @@ export const addPost = (formData, uid) => async (dispatch) => {
   }
 };
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (userId) => async (dispatch) => {
   try {
     dispatch(IsLoader(true));
-    const snapshot = await firebase
+
+    firebase
       .firestore()
       .collection("posts")
       .orderBy("createdAt", "desc")
-      .get();
-    const posts = [];
+      .limit(5)
+      .onSnapshot(async (snapshot) => {
+        const posts = [];
 
-    for (const doc of snapshot.docs) {
-      const postData = { id: doc.id, ...doc.data() };
-      const userSnapshot = await firebase
-        .firestore()
-        .collection("users")
-        .doc(postData.uid)
-        .get();
-      const userData = userSnapshot.data();
+        for (const doc of snapshot.docs) {
+          const postData = { id: doc.id, ...doc.data() };
 
-      const postWithUserData = { ...postData, creator: userData };
+          const userSnapshot = await firebase
+            .firestore()
+            .collection("users")
+            .doc(postData.uid)
+            .get();
+          const userData = userSnapshot.data();
 
-      posts.push(postWithUserData);
-    }
+          const likesSnapshot = await firebase
+            .firestore()
+            .collection("likes")
+            .where("postId", "==", doc.id)
+            .get();
 
-    console.log(posts, "ahsan");
+          const likesData = likesSnapshot.docs.map((likeDoc) => likeDoc.data());
 
-    dispatch({
-      type: "GET_POSTS",
-      payload: posts,
-    });
-    dispatch(IsLoader(false));
+          const savedSnapshot = await firebase
+          .firestore()
+          .collection("savedPosts")
+          .where("postId", "==", doc.id)
+          .where("userId", "==", userId)
+          .get();
+
+        const savedData = savedSnapshot.docs.map((savedDoc) => savedDoc.data());
+
+          const postWithUserData = {
+            ...postData,
+            creator: userData,
+            likes: likesData,
+            savedPosts: savedData,
+          };
+
+          posts.push(postWithUserData);
+        }
+
+        console.log(posts, "ahsan");
+
+        dispatch({
+          type: "GET_POSTS",
+          payload: posts,
+        });
+
+        dispatch(IsLoader(false));
+      });
   } catch (error) {
     console.error("Error fetching posts:", error);
     dispatch(IsLoader(false));
@@ -73,10 +100,18 @@ export const getPosts = () => async (dispatch) => {
 export const getSinglePost = (id) => async (dispatch) => {
   try {
     dispatch(IsLoader(true));
-    const postSnapshot = await firebase.firestore().collection("posts").doc(id).get();
+    const postSnapshot = await firebase
+      .firestore()
+      .collection("posts")
+      .doc(id)
+      .get();
     const postData = postSnapshot.data();
     const uid = postData.uid;
-    const userSnapshot = await firebase.firestore().collection("users").doc(uid).get();
+    const userSnapshot = await firebase
+      .firestore()
+      .collection("users")
+      .doc(uid)
+      .get();
     const userData = userSnapshot.data();
     const combinedData = { ...postData, creator: userData };
     dispatch({
@@ -90,15 +125,111 @@ export const getSinglePost = (id) => async (dispatch) => {
   }
 };
 
-export const deletePost = (id) => async (dispatch) =>{
-try {
-  console.log(id)
-  await firebase.firestore().collection("posts").doc(id).delete()
-  toast.success("Delete Post sucessfully")
-} catch (error) {
-  console.log(error)
-}
-}
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    console.log(id);
+    await firebase.firestore().collection("posts").doc(id).delete();
+    toast.success("Delete Post sucessfully");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const handleLike = (postId, userId) => async (dispatch) => {
+  try {
+    const likesCollection = firebase.firestore().collection("likes");
+
+    const existingLike = await likesCollection
+      .where("postId", "==", postId)
+      .where("userId", "==", userId)
+      .get();
+
+    if (existingLike.empty) {
+      await likesCollection.add({
+        postId: postId,
+        userId: userId,
+        liked: true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      console.log("Like added to Firestore");
+    } else {
+      console.log("Like already exists for this user and post");
+    }
+  } catch (error) {
+    console.error("Error handling like:", error);
+  }
+};
+
+
+export const handleUnlike = (postId, userId) => async (dispatch) => {
+  try {
+    const likesRef = firebase.firestore().collection("likes");
+    const querySnapshot = await likesRef
+      .where("postId", "==", postId)
+      .where("userId", "==", userId)
+      .get();
+
+    if (!querySnapshot.empty) {
+      const likeDocId = querySnapshot.docs[0].id;
+      await likesRef.doc(likeDocId).delete();
+
+      console.log("Like removed from Firestore");
+    } else {
+      console.log("Matching like not found");
+    }
+  } catch (error) {
+    console.error("Error handling unlike:", error);
+  }
+};
+
+export const handleSaved = (postId, userId) => async (dispatch) => {
+  try {
+    const savedCollection = firebase.firestore().collection("savedPosts");
+
+    const existingSave = await savedCollection
+      .where("postId", "==", postId)
+      .where("userId", "==", userId)
+      .get();
+
+    if (existingSave.empty) {
+      await savedCollection.add({
+        postId: postId,
+        userId: userId,
+        saved: true,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      console.log("Saved added to Firestore");
+    } else {
+      console.log("Saved already exists for this user and post");
+    }
+  } catch (error) {
+    console.error("Error handling like:", error);
+  }
+};
+
+
+export const handleUnsaved = (postId, userId) => async (dispatch) => {
+  try {
+    const saveRef = firebase.firestore().collection("savedPosts");
+    const querySnapshot = await saveRef
+      .where("postId", "==", postId)
+      .where("userId", "==", userId)
+      .get();
+
+    if (!querySnapshot.empty) {
+      const savedDocId = querySnapshot.docs[0].id;
+      await saveRef.doc(savedDocId).delete();
+
+      console.log("saved removed from Firestore");
+    } else {
+      console.log("Matching like not found");
+    }
+  } catch (error) {
+    console.error("Error handling unlike:", error);
+  }
+};
 
 export const IsLoader = (val) => async (dispatch) => {
   dispatch({
@@ -106,3 +237,4 @@ export const IsLoader = (val) => async (dispatch) => {
     payload: val,
   });
 };
+

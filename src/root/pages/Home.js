@@ -5,11 +5,12 @@ import { getPosts } from "../../store/actions/postAction";
 
 const Home = () => {
   const { posts, isLoading } = useSelector((state) => state.post);
+  const { uid } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   console.log(posts, "posts");
 
   useEffect(() => {
-    dispatch(getPosts());
+    dispatch(getPosts(uid));
   }, []);
 
   console.log(posts, "postsAhsan");
