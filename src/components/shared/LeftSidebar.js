@@ -13,7 +13,7 @@ const LeftSidebar = () => {
   };
 
   return (
-    <nav className="leftsidebar">
+    <nav className="leftsidebar custom-scrollbar">
       <div className="flex flex-col gap-8">
         <Link to="/" className="flex gap-3 items-center">
           <img

@@ -5,19 +5,15 @@ import { useSelector } from "react-redux";
 const Topbar = () => {
   const { user } = useSelector((state) => state.auth);
 
-  const ahsan = {
-    imageUrl: null,
-    userId: 8787876766, 
-  }
-
-  const signOut = () =>{
-  localStorage.clear()
-  window.location.reload()
-  }
+  const signOut = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   return (
     <section className="topbar">
       <div className="flex-between py-4 px-5">
+        <div className="flex">
         <Link to="/" className="flex gap-3 item-center">
           <img
             src="/assets/images/logo.svg"
@@ -26,20 +22,27 @@ const Topbar = () => {
             width={130}
           />
         </Link>
-
+        </div>
         <div className="flex gap-4">
           <Button
             variant="ghost"
             className="shad-button_ghost"
             onClick={() => signOut()}
           >
-            <img src="/assets/icons/logout.svg" alt="" />
+            <img src="/assets/icons/act.svg" alt="" />
           </Button>
-          <Link to={`/profile/${ahsan.userId}`} className="flex-center gap-3">
+
+          <Link
+            to="/chats"
+            className={`bottombar-link group
+         
+             flex-center flex-col gap-1 p-2 transition`}
+          >
             <img
-              src={ahsan.imageUrl || "./assets/icons/profile-placeholder.svg"}
-              alt="Profile"
-              className="h-8 w-8 rounded-full"
+              src="/assets/icons/chat.svg"
+              alt="chat"
+              height={24}
+              width={24}
             />
           </Link>
         </div>

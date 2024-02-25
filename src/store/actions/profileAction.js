@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import firebase from "../../config/firebase";
 
 export const getMyPosts = (uid) => async (dispatch) => {
@@ -32,7 +33,6 @@ export const getMyPosts = (uid) => async (dispatch) => {
 
 export const getUser = (uid) => async (dispatch) => {
   try {
-    // dispatch(IsLoader(true));
     const userDoc = await firebase
       .firestore()
       .collection("users")
@@ -40,18 +40,50 @@ export const getUser = (uid) => async (dispatch) => {
       .get();
 
     if (userDoc.exists) {
-      const userData  = { id: userDoc.id, ...userDoc.data() };
+      const userData = { id: userDoc.id, ...userDoc.data() };
       dispatch({
         type: "GET_USER",
         payload: userData,
       });
-    //   dispatch(IsLoader(true));
     } else {
       console.error("User not found");
-    //   dispatch(IsLoader(false));
     }
   } catch (error) {
     console.error("Error fetching user:", error);
+    dispatch(IsLoader(false));
+  }
+};
+
+export const updateProfile = (formData, uid) => async (dispatch) => {
+  try {
+    dispatch(IsLoader(true));
+
+    const userCollection = firebase.firestore().collection("users");
+    const userDoc = await userCollection.doc(uid).get();
+
+    if (userDoc.exists) {
+      const imageFile = formData.profileImage;
+      let imageUrl = userDoc.data().profileImage || "";
+
+      if (imageFile) {
+        const storageRef = firebase.storage().ref(`profile_images/${uid}`);
+        const imageRef = storageRef.child(imageFile.name);
+
+        await imageRef.put(imageFile);
+        imageUrl = await imageRef.getDownloadURL();
+      }
+      await userCollection
+        .doc(uid)
+        .update({ ...formData, profileImage: imageUrl });
+
+      toast.success("Update profile Sucessfully")
+    } else {
+      console.error("User document not found with the provided UID:", uid);
+    }
+
+    dispatch(IsLoader(false));
+  } catch (error) {
+    console.error("Error updating profile:", error.message);
     dispatch(IsLoader(false));
   }
 };

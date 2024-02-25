@@ -18,6 +18,7 @@ const Peoples = ({ posts}) => {
             alt="post"
             height={90}
             width={90}
+            className="rounded-full"
           />
         </div>
           <h2 className="base-large lg:h3-bold text-light-1 mt-8">{post?.name}</h2>

@@ -1,17 +1,15 @@
 import { toast } from "react-toastify";
 import firebase from "../../config/firebase";
 
-
 const getRandomColor = () => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
+  const letters = "0123456789ABCDEF";
+  let color = "#";
   for (let i = 0; i < 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
-  console.log(color,'colorAhsan')
+  console.log(color, "colorAhsan");
   return color;
 };
-
 
 const generateDefaultImageUrl = (name) => {
   const initials = name
@@ -20,12 +18,12 @@ const generateDefaultImageUrl = (name) => {
     .join("");
 
   const avatarStyles = {
-    "background-color": getRandomColor(), 
-    color: "#ffffff", 
-    "font-size": "28px", 
+    "background-color": getRandomColor(),
+    color: "#ffffff",
+    "font-size": "28px",
     width: "100px",
-    height: "100px", 
-    "border-radius": "50%", 
+    height: "100px",
+    "border-radius": "50%",
     display: "flex",
     "align-items": "center",
     "justify-content": "center",
@@ -45,8 +43,6 @@ const generateDefaultImageUrl = (name) => {
   return `data:image/svg+xml;base64,${base64}`;
 };
 
-
-
 export const signUpUser =
   (name, username, email, password) => async (dispatch) => {
     try {
@@ -56,10 +52,13 @@ export const signUpUser =
         .createUserWithEmailAndPassword(email, password);
       const { user } = userCredential;
       const createdAt = firebase.firestore.FieldValue.serverTimestamp();
+      const bio = `
+      🌿 Capturing the essence of nature through my lens
+      ✨ "In every walk with nature, one receives far more than he seeks." - brian-ahsan
+    `;
 
-      const storeData = { name, username, email, createdAt };
+      const storeData = { name, username, email, createdAt,bio };
 
-      // Generate default image URL based on the user's name
       const defaultImageUrl = generateDefaultImageUrl(name);
       storeData.profileImage = defaultImageUrl;
 
@@ -76,8 +75,6 @@ export const signUpUser =
       dispatch(IsLoader(false));
     }
   };
-
-
 
 export const signInUser = (email, password) => async (dispatch) => {
   try {

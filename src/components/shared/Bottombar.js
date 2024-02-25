@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { bottombarLinks } from "../../routes";
+import { useSelector } from "react-redux";
 
 const Bottombar = () => {
   const { pathname } = useLocation();
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <section className="bottom-bar">
@@ -27,6 +29,13 @@ const Bottombar = () => {
           </Link>
         );
       })}
+      <Link to={`/profile/${user?.userId}`} className="flex-center gap-3">
+        <img
+          src={user?.profileImage || "./assets/icons/profile-placeholder.svg"}
+          alt="Profile"
+          className="h-8 w-8 rounded-full"
+        />
+      </Link>
     </section>
   );
 };

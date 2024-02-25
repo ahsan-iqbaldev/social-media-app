@@ -227,7 +227,7 @@
 
   /* Left sidebar */
   .leftsidebar {
-    @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-2;
+    @apply hidden md:flex px-6 py-10 flex-col justify-between min-w-[270px] bg-dark-2 overflow-y-auto;
   }
 
   .leftsidebar-link {
@@ -282,6 +282,9 @@
   }
   .button_primary {
     @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 h-10 flex justify-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-8 py-2  !important;
+  }
+  .button_secoundry {
+    @apply bg-white hover:bg-primary-500 text-dark-1 flex gap-2 h-10 flex justify-center inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium  transition-colors focus-visible:outline-none  focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-8 py-2  !important;
   }
 
   .shad-button_dark_4 {

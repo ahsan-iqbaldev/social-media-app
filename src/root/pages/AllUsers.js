@@ -17,7 +17,8 @@ const AllUsers = () => {
   return (
     <div className="flex flex-1">
       <div className="common-container">
-        <div className="max-w-5xl flex-start gap-3 justify-start w-full">
+        <div className="max-w-5xl flex justify-between  gap-3  w-full">
+          <div className="flex gap-3">
           <img
             src="/assets/icons/Vector.svg"
             alt="Add"
@@ -25,7 +26,18 @@ const AllUsers = () => {
             width={36}
           />
           <h2 className="h3-bold md:h2-bold text-left-w-full">All Users</h2>
+          </div>
+          <div className="flex-center gap-3 bg-dark-3 rounded-xl px-4 py-2 cursor-pointer float-end">
+            <p className="small-medium md:base-medium text-light-2">All</p>
+            <img
+              src="/assets/icons/filter.svg"
+              width={20}
+              height={20}
+              alt="filter"
+            />
+          </div>
         </div>
+        
 
           <div className="flex flex-wrap gap-9 w-full max-w-5xl">
               <ul className="grid-container">
